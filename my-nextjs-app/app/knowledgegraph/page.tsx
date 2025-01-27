@@ -4,10 +4,10 @@ import { Chart3 } from "@/components/chart3";
 import Navbar from "@/components/navbar";
 import Image from "next/image";
 
-export default function Home() {
+export default function Knowledgegraph() {
   return (
     <main className="flex flex-col gap-8 items-center sm:items-start px-6 pb-10">
-      <h1 className="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
+      <h1 className="text-2xl font-bold text-gray-800">Knowledge Graph</h1>
 
       <div className="grid gap-6 md:grid-cols-3 w-full">
         {/* Row 1: Three small charts */}
@@ -26,4 +26,3 @@ export default function Home() {
  
   );
 }
-
