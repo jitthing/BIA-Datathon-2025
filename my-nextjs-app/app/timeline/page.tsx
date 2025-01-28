@@ -8,7 +8,6 @@ import Image from "next/image";
 export default function Timeline() {
   return (
     <main className="flex flex-col gap-8 items-center sm:items-start px-6 pb-10">
-      <h1 className="text-2xl font-bold text-gray-800">Timeline</h1>
 
       
 

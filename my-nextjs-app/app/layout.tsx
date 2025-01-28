@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import { Navbar2 } from "@/components/navbar2";
+import Toprightbar from "@/components/toprightbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,10 +30,19 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-          <Navbar />
+        <div className="w-full flex items-center h-14 px-12 mb-4">
+        <h1 className="text-xl font-bold text-gray-800">Datathon</h1>
+          <div className="absolute left-1/2 transform -translate-x-1/2 z-50">
+            <Navbar2 />
+          </div>
+          <div className="ml-auto">
+            <Toprightbar/>
+          </div>
+        </div>
+         
 
           {/* Main content with padding to avoid overlap */}
-          <main className="pt-20 px-6">{children}</main>
+          <main className="px-6">{children}</main>
       </body>
     </html>
   );

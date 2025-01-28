@@ -7,7 +7,6 @@ import Image from "next/image";
 export default function Filetags() {
   return (
     <main className="flex flex-col gap-8 items-center sm:items-start px-6 pb-10">
-      <h1 className="text-2xl font-bold text-gray-800">File tags</h1>
 
       <div className="grid gap-6 md:grid-cols-3 w-full">
         {/* Row 1: Three small charts */}
