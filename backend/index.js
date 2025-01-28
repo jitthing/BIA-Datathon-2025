@@ -16,6 +16,13 @@ app.use((req, res, next) => {
     next();
   });
 
+app.route("/", (req, res) => {
+    return res.json({ message: "[SYSTEM] This is the backend endpoint." });
+});
+
 app.listen(PORT, () => {
     console.log(`[SYSTEM] Server started on port ${PORT}...`);
+    if (supabase){
+        console.log("[SYSTEM] Supabase client connected successfully");
+    }
 });
