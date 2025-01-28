@@ -2,11 +2,11 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import RelationshipHeatmap from '@/components/Heatmap/heatmap';
+import RelationshipHeatmap from '@/components/heatmap/heatmap';
 
 // Dynamically import GeographicalHeatmap with ssr disabled
 const GeographicalHeatmap = dynamic(
-  () => import('@/components/Heatmap/geoheatmap'),
+  () => import('@/components/heatmap/geoheatmap'),
   { ssr: false } // This will only render the component on the client side
 );
 
