@@ -1,7 +1,12 @@
 // pages/index.tsx
 import React from 'react';
-import RelationshipHeatmap from '@/components/heatmap/heatmap';
-import GeographicalHeatmap from '@/components/heatmap/geoheatmap';
+import dynamic from 'next/dynamic';
+// import RelationshipHeatmap from '@/components/heatmap/heatmap';
+// import GeographicalHeatmap from '@/components/heatmap/geoheatmap';
+
+const RelationshipHeatmap = dynamic(() => import('@/components/heatmap/heatmap'), { ssr: false });
+const GeographicalHeatmap = dynamic(() => import('@/components/heatmap/geoheatmap'), { ssr: false });
+
 
 const Home: React.FC = () => {
   return (

@@ -15,6 +15,26 @@ type HeatmapPoint = [number, number, number]; // [lat, lng, intensity]
 const heatmapData: HeatmapPoint[] = [
   [42.5728, 21.0358, 1], // Pristina, Kosovo
   [46.0569, 14.5058, 1], // Ljubljana, Slovenia
+[41.3275, 19.8189, 1], // Tirana, Albania
+[40.6401, 22.9444, 1], // Thessaloniki, Greece
+[42.6977, 23.3219, 1], // Sofia, Bulgaria
+[45.8150, 15.9819, 1], // Zagreb, Croatia
+[47.4979, 19.0402, 1], // Budapest, Hungary
+[44.7866, 20.4489, 1], // Belgrade, Serbia
+[41.9981, 21.4254, 1], // Skopje, North Macedonia
+[43.8563, 18.4131, 1], // Sarajevo, Bosnia and Herzegovina
+[42.4412, 19.2636, 1], // Podgorica, Montenegro
+[39.9334, 32.8597, 1], // Ankara, Turkey
+[34.0522, -118.2437, 1], // Los Angeles, USA
+[40.7128, -74.0060, 1], // New York, USA
+[51.5074, -0.1278, 1], // London, UK
+[35.6895, 139.6917, 1], // Tokyo, Japan
+[48.8566, 2.3522, 1], // Paris, France
+[55.7558, 37.6173, 1], // Moscow, Russia
+[39.9042, 116.4074, 1], // Beijing, China
+[19.4326, -99.1332, 1], // Mexico City, Mexico
+[28.6139, 77.2090, 1], // New Delhi, India
+[33.8688, 151.2093, 1], // Sydney, Australia
   // Add more points as needed
 ];
 
