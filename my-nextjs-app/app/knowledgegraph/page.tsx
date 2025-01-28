@@ -2,13 +2,7 @@ import { Chart1 } from "@/components/chart1";
 import { Chart2 } from "@/components/chart2";
 import { Chart3 } from "@/components/chart3";
 import Navbar from "@/components/navbar";
-import { ResizableCards } from "@/components/resizableCards";
-import Image from "next/image";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable"
+
 
 export default function Knowledgegraph() {
   return (
