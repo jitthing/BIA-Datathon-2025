@@ -1,2 +1,2 @@
-export * from "./heatmap"
-export * from "./geoheatmap"
+export * from "./heatmap";
+export * from "./geoheatmap";

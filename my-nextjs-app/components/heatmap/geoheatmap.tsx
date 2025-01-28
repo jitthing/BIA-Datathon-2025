@@ -64,7 +64,7 @@ const GeographicalHeatmap: React.FC = () => {
     <div style={{ height: '500px', width: '100%' }}>
       <MapContainer
         center={[42.5728, 21.0358]} // Center on Pristina, Kosovo
-        zoom={7}
+        zoom={5}
         style={{ height: '100%', width: '100%' }}
       >
         <TileLayer

@@ -10,7 +10,6 @@ interface RelationshipData {
 }
 
 const RelationshipHeatmap = () => {
-  // Sample data transformed from the provided triplets
   const data: RelationshipData[] = [
     { subject: "Pristina Airport", predicate: "location", object: "Pristina" },
     { subject: "Kosovo", predicate: "capital", object: "Pristina" },
@@ -53,7 +52,7 @@ const RelationshipHeatmap = () => {
   return (
     <Card className="w-full max-w-6xl overflow-x-auto">
       <CardHeader>
-        <CardTitle>Entity Relationship Heatmap</CardTitle>
+        <CardTitle>Relationship Heatmap</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="min-w-max">
