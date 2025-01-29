@@ -10,19 +10,33 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// this attaches the supabase client to the request object, so we can refer to req.supabase when writing controller functions and no need to import supabase in every file
+// Attach the supabase client to the request object
 app.use((req, res, next) => {
     req.supabase = supabase;
     next();
-  });
+});
 
-app.route("/", (req, res) => {
-    return res.json({ message: "[SYSTEM] This is the backend endpoint." });
+app.use("/api", require("./router/appRouter"));
+
+app.get("/", async (req, res) => {
+    // Test the Supabase client
+    try {
+        const { data, error } = await req.supabase.default.from('entity_relationship_all').select('*').limit(10);
+        if (error) {
+            console.error('Error fetching data:', error);
+            return res.status(500).json({ error: 'Error fetching data' });
+        }
+        return res.json({ message: "[SYSTEM] This is the backend endpoint.", data });
+    } catch (error) {
+        console.error('Unexpected error:', error);
+        return res.status(500).json({ error: 'Unexpected error' });
+    }
 });
 
 app.listen(PORT, () => {
     console.log(`[SYSTEM] Server started on port ${PORT}...`);
-    if (supabase){
-        console.log("[SYSTEM] Supabase client connected successfully");
-    }
+    // Log the Supabase client to check if it is initialized correctly
+    // console.log('Supabase Client:', supabase);
+    console.log('Supabase Client Methods:', Object.keys(supabase.default));
+    // console.log('Supabase REST Methods:', Object.keys(supabase.rest));
 });
