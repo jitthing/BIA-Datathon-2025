@@ -16,7 +16,7 @@ type File = {
 export default function Filetags() {
   const [files, setFiles] = useState<File[]>([])
   const fetchData = async (value:string) => {
-    const response = await axios.get("http://localhost:8000/api/dataset", {
+    const response = await axios.get("https://bia-datathon-2025.onrender.com/api/dataset", {
       params: { search: value }
     });
     // Transform the data to match File type
