@@ -2,6 +2,7 @@ const express = require("express");
 
 const {getRelationships} = require("../controllers/relationshipController");
 
+
 router = express.Router();
 
 // Relationship routes

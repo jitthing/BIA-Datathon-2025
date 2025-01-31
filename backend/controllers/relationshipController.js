@@ -2,7 +2,7 @@
 
 async function getRelationships(req, res) {
     // console.log('getRelationships');
-        const { data, error } = await req.supabase.default
+        const { data, error } = await req.supabase
             .from('entity_relationship_all')
             .select('Subject')
             .limit(10);

@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const supabase = require('./middleware/supabase');
+const supabase = require('./middleware/supabase.js');
 
 const PORT = 8000;
 
@@ -37,6 +37,6 @@ app.listen(PORT, () => {
     console.log(`[SYSTEM] Server started on port ${PORT}...`);
     // Log the Supabase client to check if it is initialized correctly
     // console.log('Supabase Client:', supabase);
-    console.log('Supabase Client Methods:', Object.keys(supabase.default));
+    console.log('Supabase Client Methods:', Object.keys(supabase));
     // console.log('Supabase REST Methods:', Object.keys(supabase.rest));
 });
