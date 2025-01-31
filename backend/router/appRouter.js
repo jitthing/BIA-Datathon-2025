@@ -1,6 +1,6 @@
 const express = require("express");
 
-const {getRelationships} = require("../controllers/relationshipController");
+// const {getRelationships} = require("../controllers/relationshipController");
 const {getDataset} = require("../controllers/datasetController");
 
 const { getGraphRelationships } = require("../controllers/neo4jController");
