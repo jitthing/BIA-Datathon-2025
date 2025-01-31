@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import { Navbar2 } from "@/components/navbar2";
-import Toprightbar from "@/components/toprightbar";
+import Toprightbar from "@/components/searchFunction";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,7 +36,6 @@ export default function RootLayout({
             <Navbar2 />
           </div>
           <div className="ml-auto">
-            <Toprightbar/>
           </div>
         </div>
          

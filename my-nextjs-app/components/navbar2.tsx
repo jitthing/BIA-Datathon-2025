@@ -26,7 +26,7 @@ export function Navbar2() {
     { href: "/knowledgegraph", label: "Knowledge Graph" },
     { href: "/heatmap", label: "Heatmap" },
     { href: "/timeline", label: "Timeline" },
-    { href: "/filetags", label: "File Tags" },
+    { href: "/filetags", label: "File Viewer" },
   ]
 
   return (
