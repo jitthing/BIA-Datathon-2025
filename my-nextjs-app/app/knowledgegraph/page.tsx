@@ -1,6 +1,6 @@
 import { Chart1 } from "@/components/chart1";
 import { Chart2 } from "@/components/chart2";
-import { Chart3 } from "@/components/chart3";
+import KnowledgeGraphChart from "@/components/knowledgegraph/knowledgegraph";
 import Navbar from "@/components/navbar";
 
 
@@ -10,15 +10,14 @@ export default function Knowledgegraph() {
 
       <div className="grid gap-6 md:grid-cols-3 w-full">
         {/* Row 1: Three small charts */}
-        <Chart2/>
+        <KnowledgeGraphChart />
         <Chart1/>
         <Chart1/>
-        <Chart3/>
         {/* <Chart3/> */}
 
         {/* Row 2: Large chart spanning two columns */}
         <div className="md:col-span-2 min-h-[300px] rounded-xl">
-          <Chart3 />
+          <Chart1 />
         </div>
       </div>
     </main>

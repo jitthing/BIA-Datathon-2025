@@ -3,7 +3,13 @@ const express = require("express");
 const {getRelationships} = require("../controllers/relationshipController");
 const {getDataset} = require("../controllers/datasetController");
 
+const { getGraphRelationships } = require("../controllers/neo4jController");
 
+const {
+  getRelationships,
+  updateCountries,
+  getCountriesWithCoor,
+} = require("../controllers/relationshipController");
 
 router = express.Router();
 
@@ -11,6 +17,8 @@ router = express.Router();
 router.get("/relationships", getRelationships);
 router.get("/dataset", getDataset);
 
-
+router.get("/graph/relationships", getGraphRelationships);
+router.get("/update-coor", updateCountries);
+router.get("/get-country-coord", getCountriesWithCoor);
 
 module.exports = router;
