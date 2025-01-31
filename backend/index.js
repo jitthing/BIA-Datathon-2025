@@ -21,7 +21,7 @@ app.use("/api", require("./router/appRouter"));
 app.get("/", async (req, res) => {
   // Test the Supabase client
   try {
-    const { data, error } = await req.supabase.default
+    const { data, error } = await req.supabase
       .from("entity_relationship_all")
       .select("*")
       .limit(10);

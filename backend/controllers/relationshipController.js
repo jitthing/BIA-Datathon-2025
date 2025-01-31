@@ -96,7 +96,15 @@ async function getCountriesWithCoor(req, res) {
     return res.status(404).json({ error: "No data found" });
   }
 
-  return res.status(200).json(data);
+  var temp = [];
+
+  for (point of data) {
+    if (point.lat != null) {
+      temp.push([point.lat, point.long, point.count * 50]);
+    }
+  }
+
+  return res.status(200).json(temp);
 }
 
 module.exports = { getRelationships, updateCountries, getCountriesWithCoor };
