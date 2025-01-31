@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import FileList from "@/components/filetags/FileList";
+import FileList from "@/components/fileviewer/FileList";
 import SearchFunction from "@/components/searchFunction";
 import axios from 'axios';
 import { UUID } from "crypto";
@@ -13,7 +13,7 @@ type File = {
   url: string;
 }
 
-export default function Filetags() {
+export default function Fileviewer() {
   const [files, setFiles] = useState<File[]>([])
   const fetchData = async (value:string) => {
     const response = await axios.get("https://bia-datathon-2025.onrender.com/api/dataset", {
