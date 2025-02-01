@@ -25,7 +25,7 @@ export function Navbar2() {
   const navLinks = [
     { href: "/home", label: "Home" },
     { href: "/knowledgegraph", label: "Knowledge Graph" },
-    { href: "/heatmap", label: "Heatmap" },
+    { href: "/geomap", label: "Geomap" },
     { href: "/timeline", label: "Timeline" },
     { href: "/fileviewer", label: "File Viewer" },
   ]

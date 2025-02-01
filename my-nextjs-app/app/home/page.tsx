@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import KgHome from "@/components/home/kgHome";
 import TlHome from "@/components/home/tlHome";
 import FvHome from "@/components/home/fvHome";
-import HmHome from "@/components/home/hmHome";
+import HmHome from "@/components/home/GmHome";
 
 export default function HomePage() {
     return (
