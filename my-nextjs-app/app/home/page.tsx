@@ -10,7 +10,7 @@ export default function HomePage() {
       <main className="flex flex-col gap-6 items-center sm:items-start px-6 pb-4">
         <div className="grid gap-2 md:grid-cols-3 w-full">
           {/* Row 1: Three small charts */}
-          <div className="h-96 flex flex-col overflow-hidden">
+          <div className="h-[500px] flex flex-col overflow-hidden">
             <div className="flex-1 p-4">
               <KgHome />
             </div>
@@ -20,7 +20,7 @@ export default function HomePage() {
               <TlHome />
             </div>
           </div>
-          <div className="h-96 flex flex-col">
+          <div className="h-[500px] flex flex-col">
             <div className="flex-1 overflow-y-auto p-4">
               <FvHome />
             </div>
