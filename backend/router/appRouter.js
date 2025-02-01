@@ -1,7 +1,7 @@
 const express = require("express");
 
 // const {getRelationships} = require("../controllers/relationshipController");
-const {getDataset} = require("../controllers/datasetController");
+const {getDataset , getPeople} = require("../controllers/datasetController");
 
 const { getGraphRelationships } = require("../controllers/neo4jController");
 
@@ -20,6 +20,8 @@ router = express.Router();
 // Relationship routes
 router.get("/relationships", getRelationships);
 router.get("/dataset", getDataset);
+// uncommented so we wont expose the endpoint for updating the table
+// router.get("/people", getPeople);
 
 router.get("/graph/relationships", getGraphRelationships);
 router.get("/update-coor", updateCountries);

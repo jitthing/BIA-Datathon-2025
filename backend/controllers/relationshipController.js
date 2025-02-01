@@ -100,7 +100,7 @@ async function getCountriesWithCoor(req, res) {
 
   for (point of data) {
     if (point.lat != null) {
-      temp.push([point.lat, point.long, point.count * 50]);
+      temp.push([point.lat, point.long, point.count * 20]);
     }
   }
 
