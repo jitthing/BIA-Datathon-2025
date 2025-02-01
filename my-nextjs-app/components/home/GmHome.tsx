@@ -20,8 +20,8 @@ export default function GmHome() {
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
         <div className="w-full flex justify-between items-start">
-          <CardTitle className="pb-3">HeatMap</CardTitle>
-          <Link href="/heatmap" className="text-sm text-black hover:underline flex items-center">
+          <CardTitle className="pb-3">GeoMap</CardTitle>
+          <Link href="/geomap" className="text-sm text-black hover:underline flex items-center">
             See More <ChevronRight className="h-4 w-4 ml-1" />
           </Link>
         </div>
