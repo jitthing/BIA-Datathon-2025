@@ -13,11 +13,13 @@ type File = {
   url: string;
 }
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 export default function Fileviewer() {
   const [files, setFiles] = useState<File[]>([])
 
   const fetchData = async (value:string) => {
-    const response = await axios.get("https://bia-datathon-2025.onrender.com/api/dataset", {
+    const response = await axios.get( BACKEND_URL + "/api/dataset", {
       params: { search: value }
     });
     // Transform the data to match File type

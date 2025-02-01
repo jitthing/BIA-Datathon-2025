@@ -6,6 +6,8 @@ import { Timeline, TimelineItem } from "@/components/timeline";
 import { Input } from "@/components/ui/input";
 import { Check } from "lucide-react";
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 export default function TimelinePage() {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState(query);
