@@ -9,7 +9,7 @@ import axios from "axios";
 import { Timeline, TimelineItem } from "@/components/timeline";
 
 export default function TlHome() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("Singapore");
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [timelineData, setTimelineData] = useState<any[]>([]);
 
@@ -22,6 +22,7 @@ export default function TlHome() {
       clearTimeout(handler);
     };
   }, [query]);
+  
 
   // Fetch timeline data when the debounced query changes.
   useEffect(() => {
