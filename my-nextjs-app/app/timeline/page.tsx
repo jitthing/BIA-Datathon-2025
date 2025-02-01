@@ -83,7 +83,7 @@ export default function TimelinePage() {
           </Timeline>
         </div>
         <div className="mt-8 w-1/2 flex flex-col items-center">
-          <div>
+          <div className="fixed">
             <h2 className="text-lg font-semibold text-center">Search Info</h2>
             <p className="text-sm">
               Search Query: <span className="font-semibold">{query}</span>
