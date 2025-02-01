@@ -120,7 +120,7 @@ async function getPeople(req, res) {
     if (err) {
         return res.status(500).json({ error: err.message });
     }
-    return res.status(200).json({ message: 'Data inserted successfully' });
+    return res.status(200).json(groupedResult);
 }
 
 // Function to group places by proximity
@@ -155,7 +155,7 @@ function groupByProximity(data, threshold) {
         const aggregatedText = group.map(item => item.text).join('; ');
         return {
             lat: group[0].lat,
-            lng: group[0].lng,
+            long: group[0].lng,
             count: 1,
             text: aggregatedText
         };
@@ -164,4 +164,21 @@ function groupByProximity(data, threshold) {
     return aggregatedGroups;
 }
 
-module.exports = { getDataset , getPeople};
+async function getAllPeople(req,res){
+    const { data: people, error } = await req.supabase
+    .from('person_place')
+    .select('*');
+
+    if (error) {
+        return res.status(500).json({ error: error.message });
+    }
+
+    var result = [];
+    for (const person of people){
+        result.push([person.lat, person.long, person.count, person.text]);
+    }
+
+    return res.status(200).json(result);
+}
+
+module.exports = { getDataset , getPeople, getAllPeople};

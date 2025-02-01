@@ -2,7 +2,6 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-// import RelationshipHeatmap from "@/components/heatmap/heatmap";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";  // Assuming you have a UI Input component
 import { Button } from "@/components/ui/button";
