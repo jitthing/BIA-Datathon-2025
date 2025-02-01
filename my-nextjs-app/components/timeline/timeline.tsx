@@ -6,7 +6,8 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { AlertCircle, Loader2 } from "lucide-react";
 import type { TimelineColor } from "@/types";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import axios from "axios";
 
 const timelineVariants = cva("flex flex-col relative", {
   variants: {
@@ -89,6 +90,8 @@ interface TimelineItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
   description?: string;
   /** Link text */
   link?: string;
+  /** Record id for updating the timeline record */
+  id?: string;
   /** Custom icon element */
   icon?: React.ReactNode;
   /** Color theme for the icon */
@@ -105,6 +108,7 @@ interface TimelineItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
   loading?: boolean;
   /** Error message */
   error?: string;
+  isEditing?: boolean;
 }
 
 const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
@@ -114,6 +118,7 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
       date,
       title,
       description,
+      id,
       link,
       icon,
       iconColor,
@@ -123,6 +128,7 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
       iconsize,
       loading,
       error,
+      isEditing,
       ...props
     },
     ref
@@ -199,49 +205,109 @@ const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
       );
     }
 
-    // Normal / Default State
-    const content = (
-      <div
-        className="grid grid-cols-[1fr_auto_1fr] gap-4 items-start"
-        {...(status === "in-progress" ? { "aria-current": "step" } : {})}
-      >
-        {/* Date */}
-        <div className="flex flex-col justify-start pt-1">
-          <TimelineTime className="text-right pr-4">{date}</TimelineTime>
-        </div>
+// Normal/default state – use local state only if editing is enabled.
+const [localDate, setLocalDate] = React.useState(date || "");
+const [isUpdating, setIsUpdating] = React.useState(false);
+const [updateError, setUpdateError] = React.useState<string | null>(null);
 
-        {/* Timeline dot and connector */}
-        <div className="flex flex-col items-center">
-          <div className="relative z-10">
-            <TimelineIcon
-              icon={icon}
-              color={iconColor}
-              status={status}
-              iconSize={iconsize}
-            />
-          </div>
-          {showConnector && <div className="h-40 w-0.5 bg-border mt-2" />}
-        </div>
+// Ensure localDate is updated if the date prop changes
+React.useEffect(() => {
+  setLocalDate(date || "");
+}, [date]);
 
-        {/* Content */}
-        <TimelineContent>
-          <TimelineHeader>
-            <TimelineTitle>{title}</TimelineTitle>
-          </TimelineHeader>
-          <TimelineDescription>{description}</TimelineDescription>
-          <a href={link} target="_blank">
-            <Button variant="link" className="m-0 p-0">Source Link</Button>
-          </a>
-        </TimelineContent>
-      </div>
-    );
-
-    return (
-      <li ref={ref} className={commonClassName} {...props}>
-        {content}
-      </li>
-    );
+// Function to update the timeline item via your API endpoint.
+const handleConfirm = async () => {
+  setIsUpdating(true);
+  setUpdateError(null);
+  if (!id) {
+    setUpdateError("Record ID is missing.");
+    setIsUpdating(false);
+    return;
   }
+
+  try {
+    const response = await axios.put("http://localhost:8000/api/timeline", {
+      id,
+      newDate: localDate,
+    });
+    if (response.data.error) {
+      setUpdateError(response.data.error);
+    } else {
+      console.log("Date updated successfully:", response.data);
+    }
+  } catch (error: any) {
+    console.error("Error updating date:", error);
+    setUpdateError(error.message);
+  }
+  setIsUpdating(false);
+};
+
+const content = (
+  <div
+    className="grid grid-cols-[1fr_auto_1fr] gap-4 items-start"
+    {...(status === "in-progress" ? { "aria-current": "step" } : {})}
+  >
+    {/* Left Column – Date */}
+    <div className="flex flex-col justify-start pt-1">
+      {isEditing ? (
+        <>
+          <Input
+            type="text"
+            value={localDate}
+            onChange={(e) => setLocalDate(e.target.value)}
+            className="text-right pr-4"
+          />
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={handleConfirm}
+            disabled={isUpdating}
+          >
+            {isUpdating ? "Updating..." : "Confirm"}
+          </Button>
+          {updateError && (
+            <p className="text-red-500 text-xs mt-1">{updateError}</p>
+          )}
+        </>
+      ) : (
+        <TimelineTime className="text-right pr-4">{date}</TimelineTime>
+      )}
+    </div>
+
+    {/* Center Column – Icon & Connector */}
+    <div className="flex flex-col items-center">
+      <div className="relative z-10">
+        <TimelineIcon
+          icon={icon}
+          color={iconColor}
+          status={status}
+          iconSize={iconsize}
+        />
+      </div>
+      {showConnector && <div className="h-40 w-0.5 bg-border mt-2" />}
+    </div>
+
+    {/* Right Column – Content */}
+    <TimelineContent>
+      <TimelineHeader>
+        <TimelineTitle>{title}</TimelineTitle>
+      </TimelineHeader>
+      <TimelineDescription>{description}</TimelineDescription>
+      <a href={link} target="_blank" rel="noreferrer">
+        <Button variant="link" className="m-0 p-0">
+          Source Link
+        </Button>
+      </a>
+    </TimelineContent>
+  </div>
+);
+
+return (
+  <li ref={ref} className={cn("relative w-full mb-2 last:mb-0", className)} {...props}>
+    {content}
+  </li>
+);
+}
 );
 TimelineItem.displayName = "TimelineItem";
 

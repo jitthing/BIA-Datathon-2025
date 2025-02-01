@@ -5,7 +5,7 @@ export type TimelineStatus = 'completed' | 'in-progress' | 'pending';
 export type TimelineColor = 'primary' | 'secondary' | 'muted' | 'accent' | 'destructive';
 
 export interface TimelineElement {
-  id: number;
+  id: string;
   date: string;
   title: string;
   description: string;
