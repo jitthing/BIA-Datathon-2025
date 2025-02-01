@@ -53,7 +53,7 @@ const GeographicalHeatmap: React.FC = () => {
   return (
     <div style={{ height: "500px", width: "100%" }}>
       <MapContainer
-        center={[42.5728, 21.0358]} // Center on Pristina, Kosovo
+        center={[1.352083, 103.819836]} // Center on Singapore
         zoom={5}
         style={{ height: "100%", width: "100%" }}
       >
