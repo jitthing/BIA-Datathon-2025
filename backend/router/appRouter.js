@@ -1,7 +1,7 @@
 const express = require("express");
 
 // const {getRelationships} = require("../controllers/relationshipController");
-const {getDataset , getPeople} = require("../controllers/datasetController");
+const { getDataset, getPeople } = require("../controllers/datasetController");
 
 const { getGraphRelationships } = require("../controllers/neo4jController");
 
@@ -12,8 +12,9 @@ const {
 } = require("../controllers/relationshipController");
 
 const {
-  getTimelineItems
-} = require("../controllers/timelineController")
+  getTimelineItems,
+  updateTimelineItem,
+} = require("../controllers/timelineController");
 
 router = express.Router();
 
@@ -28,5 +29,6 @@ router.get("/update-coor", updateCountries);
 router.get("/get-country-coord", getCountriesWithCoor);
 
 router.get("/timeline", getTimelineItems);
+router.put("/timeline", updateTimelineItem);
 
 module.exports = router;

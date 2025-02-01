@@ -9,7 +9,7 @@ async function getTimelineItems(req, res) {
     .from("news_dates")
     .select("*")
     .ilike("text", `%${word}%`);
-    
+
   if (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -22,3 +22,24 @@ async function getTimelineItems(req, res) {
 }
 
 module.exports = { getTimelineItems };
+
+async function updateTimelineItem(req, res) {
+  const { id, newDate } = req.body;
+
+  if (!id || !newDate) {
+    return res.status(400).json({ error: "Missing required parameters: id and newDate" });
+  }
+
+  const { data, error } = await req.supabase
+    .from("news_dates")
+    .update({ extracted_date: newDate })
+    .eq("id", id);
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  return res.status(200).json({ message: "Timeline item updated successfully", data });
+}
+
+module.exports = { getTimelineItems, updateTimelineItem };
