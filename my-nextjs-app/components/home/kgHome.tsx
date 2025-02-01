@@ -42,6 +42,8 @@ export default function KgHome() {
     if (graphData.nodes.length === 0) return;
 
     const container = networkRef.current;
+    if (!container) return;
+    
     const data = { nodes: graphData.nodes, edges: graphData.edges };
     const options = {
       nodes: {
