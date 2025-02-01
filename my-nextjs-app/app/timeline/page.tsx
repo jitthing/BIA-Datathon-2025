@@ -30,7 +30,7 @@ export default function TimelinePage() {
     const fetchTimelineData = async (searchWord: string) => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/timeline?word=${searchWord}`
+          `https://bia-datathon-2025.onrender.com/api/timeline?word=${searchWord}`
         );
         setTimelineData(res.data);
       } catch (error) {
