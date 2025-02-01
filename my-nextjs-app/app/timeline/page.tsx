@@ -22,6 +22,11 @@ export default function TimelinePage() {
   }, [query]);
 
   useEffect(() => {
+    if (!debouncedQuery) {
+      setTimelineData([]);
+      return;
+    }
+  
     const fetchTimelineData = async (searchWord: string) => {
       try {
         const res = await axios.get(
@@ -33,15 +38,17 @@ export default function TimelinePage() {
         setTimelineData([]);
       }
     };
-
+  
     fetchTimelineData(debouncedQuery);
   }, [debouncedQuery]);
+  
 
   return (
-    <main className="p-4">
-      <div className="w-full max-w-2xl mx-auto">
+    <main className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Timeline</h1>
+      <div className="w-full mx-auto">
         <Input
-          placeholder="Search timeline..."
+          placeholder="Search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="w-full"
@@ -58,10 +65,18 @@ export default function TimelinePage() {
                 title={item.title}
                 description={item.description}
                 link={item.link}
-                icon={<Check />}
               />
             ))}
           </Timeline>
+        </div>
+        <div className="mt-8 w-1/2 flex flex-col items-center">
+          {timelineData && (
+            <div>
+              <h2 className="text-lg font-semibold text-center">Search Info</h2>
+              <p className="text-sm">Search Query: <span className="font-semibold">{query}</span></p>
+              <p className="text-sm">No. of Articles Returned: <span className="font-semibold">{timelineData.length}</span></p>
+            </div>
+          )}
         </div>
       </div>
     </main>
