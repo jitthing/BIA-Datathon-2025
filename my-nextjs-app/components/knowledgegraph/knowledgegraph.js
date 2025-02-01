@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";  // Assuming you have a UI Input component
 import { Button } from "@/components/ui/button";
 
-const BASE_API_URL = "http://localhost:8000/api/graph/relationships";
+const BASE_API_URL = "https://bia-datathon-2025.onrender.com/api/graph/relationships";
 
 export default function KnowledgeGraphChart() {
   const [graphData, setGraphData] = useState({ nodes: [], edges: [] });

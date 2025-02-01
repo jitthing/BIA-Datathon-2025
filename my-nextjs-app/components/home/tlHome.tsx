@@ -7,13 +7,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";  // Assuming you have a UI Input component
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { Check, ChevronRight } from "lucide-react";
+import { Timeline, TimelineItem } from "@/components/timeline";
 
-// Dynamically import GeographicalHeatmap with ssr disabled
-const GeographicalHeatmap = dynamic(
-  () => import("@/components/heatmap/geoheatmap"),
-  { ssr: false } // This will only render the component on the client side
-);
+// // Dynamically import GeographicalHeatmap with ssr disabled
+// const GeographicalHeatmap = dynamic(
+//   () => import("@/components/heatmap/geoheatmap"),
+//   { ssr: false } // This will only render the component on the client side
+// );
 
 export default function TlHome() {
     return (
@@ -27,6 +28,7 @@ export default function TlHome() {
             </div>
           </CardHeader>
           <CardContent className="flex-1 pb-0 overflow-hidden">
+            {/* Add content here */}
           </CardContent>
         </Card>
       );
