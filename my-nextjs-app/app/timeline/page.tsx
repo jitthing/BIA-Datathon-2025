@@ -7,7 +7,7 @@ import { Timeline, TimelineItem } from "@/components/timeline";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export default function TimelinePage() {
   const [query, setQuery] = useState("");
@@ -32,7 +32,7 @@ export default function TimelinePage() {
 
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/timeline?word=${searchWord}`
+        BACKEND_URL + `/api/timeline?word=${searchWord}`
       );
       setTimelineData(res.data);
     } catch (error) {
@@ -45,10 +45,8 @@ export default function TimelinePage() {
     fetchTimelineData(debouncedQuery);
   }, [debouncedQuery, fetchTimelineData]);
 
-  // Toggle editing mode and refetch timeline data when turning off editing.
   const handleToggleEditing = () => {
     if (isEditing) {
-      // When turning editing off, re-fetch the timeline data
       fetchTimelineData(debouncedQuery);
     }
     setIsEditing(!isEditing);
