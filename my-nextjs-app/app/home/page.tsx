@@ -15,7 +15,7 @@ export default function HomePage() {
               <KgHome />
             </div>
           </div>
-          <div className="h-96 flex flex-col">
+          <div className="h-[500px] flex flex-col">
             <div className="flex-1 overflow-y-auto p-4">
               <TlHome />
             </div>
