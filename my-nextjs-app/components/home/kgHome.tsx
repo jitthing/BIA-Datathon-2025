@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
-const BASE_API_URL = "http://localhost:8000/api/graph/relationships";
+const BASE_API_URL = "https://bia-datathon-2025.onrender.com/api/graph/relationships";
 
 export default function KgHome() {
   const [graphData, setGraphData] = useState({ nodes: [], edges: [] });
