@@ -31,7 +31,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="w-full flex items-center h-14 px-12 mb-4">
-        <h1 className="text-xl font-bold text-gray-800">Datathon</h1>
+          <a href="/home">        
+            <h1 className="text-xl font-bold text-gray-800">Datathon</h1>
+          </a>
           <div className="absolute left-1/2 transform -translate-x-1/2 z-50">
             <Navbar2 />
           </div>

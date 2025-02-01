@@ -23,6 +23,7 @@ export function Navbar2() {
   }, [])
 
   const navLinks = [
+    { href: "/home", label: "Home" },
     { href: "/knowledgegraph", label: "Knowledge Graph" },
     { href: "/heatmap", label: "Heatmap" },
     { href: "/timeline", label: "Timeline" },

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import FileList from "@/components/fileviewer/FileList";
 import SearchFunction from "@/components/searchFunction";
 import axios from 'axios';
@@ -15,6 +15,7 @@ type File = {
 
 export default function Fileviewer() {
   const [files, setFiles] = useState<File[]>([])
+
   const fetchData = async (value:string) => {
     const response = await axios.get("https://bia-datathon-2025.onrender.com/api/dataset", {
       params: { search: value }
@@ -31,6 +32,7 @@ export default function Fileviewer() {
     console.log('transformed data', transformedData);
     return { data: transformedData };
   }
+
   const handleSearch = async (searchTerm: string) => {
     const response = await fetchData(searchTerm);
     const searchResults = response?.data || [];
@@ -44,12 +46,17 @@ export default function Fileviewer() {
     setFiles(uniqueResults);
     console.log('filtered files', uniqueResults);
   };
+
+  // Add useEffect for initial search
+  useEffect(() => {
+    handleSearch(''); // Perform empty search on component mount
+  }, []);
+
   return (
-      <main className="container mx-auto p-4">
+    <main className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">File Viewer</h1>
       <SearchFunction onSearch={handleSearch} />
       <FileList files={files} />
     </main>
- 
   );
 }
