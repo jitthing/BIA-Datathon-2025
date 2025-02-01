@@ -39,7 +39,7 @@ const GeographicalHeatmap: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get( BACKEND_URL + '/api/get-country-coord'); // Adjust the endpoint as needed
+        const response = await axios.get( BACKEND_URL + '/api/get-people-place'); // Adjust the endpoint as needed
         const data = response.data;
         setpointData(data);
       } catch (error) {
