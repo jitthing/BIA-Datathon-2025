@@ -3,12 +3,21 @@ const { getSession } = require("../middleware/neo4j");
 async function getGraphRelationships(req, res) {
   const session = getSession();
 
+  // Get search parameters from request query
+  const { search = "", limit = 10 } = req.query;
+
   try {
-    const result = await session.run(`
+    let cypherQuery = `
       MATCH (n)-[r]->(m) 
+      WHERE toLower(n.name) CONTAINS toLower($search) OR toLower(m.name) CONTAINS toLower($search)
       RETURN DISTINCT n.name AS source, type(r) AS relationship, m.name AS target 
-      LIMIT 50
-    `);
+      LIMIT toInteger($limit)
+    `;
+
+    const result = await session.run(cypherQuery, {
+      search: search.trim(),  // Ensure clean input
+      limit: parseInt(limit, 10), // Convert limit to integer
+    });
 
     if (!result.records || result.records.length === 0) {
       return res.status(200).json({
