@@ -22,7 +22,7 @@ router = express.Router();
 router.get("/relationships", getRelationships);
 router.get("/dataset", getDataset);
 // uncommented so we wont expose the endpoint for updating the table
-// router.get("/people", getPeople);
+router.get("/people", getPeople);
 
 router.get("/graph/relationships", getGraphRelationships);
 router.get("/update-coor", updateCountries);

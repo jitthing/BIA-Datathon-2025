@@ -7,6 +7,8 @@ import { Timeline, TimelineItem } from "@/components/timeline";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 export default function TimelinePage() {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState(query);
