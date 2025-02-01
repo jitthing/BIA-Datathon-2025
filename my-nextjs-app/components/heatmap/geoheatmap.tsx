@@ -8,13 +8,18 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet.heat';
 import axios from 'axios';
 
-type HeatmapPoint = [number, number, number];
+type HeatmapPoint = [number, number, number, string];
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
+
+console.log(BACKEND_URL);
 
 const HeatmapLayer: React.FC<{ data: HeatmapPoint[] }> = ({ data }) => {
   const map = useMap();
 
   useEffect(() => {
-    const heatmap = (L as any).heatLayer(data, {
+    const heatmapData = data.map(point => [point[0], point[1], point[2]]); // Extract only the numbers for the heatmap
+    const heatmap = (L as any).heatLayer(heatmapData, {
       radius: 25,
       blur: 15,
       maxZoom: 17,
@@ -29,14 +34,14 @@ const HeatmapLayer: React.FC<{ data: HeatmapPoint[] }> = ({ data }) => {
 };
 
 const GeographicalHeatmap: React.FC = () => {
-  const [heatmapData, setHeatmapData] = useState<HeatmapPoint[]>([]);
+  const [pointData, setpointData] = useState<HeatmapPoint[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/get-country-coord'); // Adjust the endpoint as needed
+        const response = await axios.get( BACKEND_URL + '/api/get-country-coord'); // Adjust the endpoint as needed
         const data = response.data;
-        setHeatmapData(data);
+        setpointData(data);
       } catch (error) {
         console.error('Error fetching heatmap data:', error);
       }
@@ -56,12 +61,12 @@ const GeographicalHeatmap: React.FC = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        {heatmapData.map((data, index) => (
+        {pointData.map((data, index) => (
           <Marker key={index} position={[data[0], data[1]]}>
-            <Popup>some data here</Popup>
+            <Popup>{data[3]}</Popup>
           </Marker>
         ))}
-        <HeatmapLayer data={heatmapData} />
+        <HeatmapLayer data={pointData} />
       </MapContainer>
     </div>
   );

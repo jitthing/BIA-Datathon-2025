@@ -111,7 +111,16 @@ async function getPeople(req, res) {
 
     const groupedResult = groupByProximity(result, 1000); // Group places within 1000 meters
 
-    return res.json(groupedResult);
+    const { err } = await req.supabase
+  .from('person_place')
+  .insert(
+    groupedResult
+  );
+
+    if (err) {
+        return res.status(500).json({ error: err.message });
+    }
+    return res.status(200).json({ message: 'Data inserted successfully' });
 }
 
 // Function to group places by proximity
@@ -147,6 +156,7 @@ function groupByProximity(data, threshold) {
         return {
             lat: group[0].lat,
             lng: group[0].lng,
+            count: 1,
             text: aggregatedText
         };
     });
