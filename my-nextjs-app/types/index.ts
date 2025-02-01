@@ -9,6 +9,7 @@ export interface TimelineElement {
   date: string;
   title: string;
   description: string;
+  link: string;
   icon?: ReactNode | (() => ReactNode);
   status?: TimelineStatus;
   color?: TimelineColor;

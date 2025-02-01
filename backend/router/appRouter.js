@@ -11,6 +11,10 @@ const {
   getCountriesWithCoor,
 } = require("../controllers/relationshipController");
 
+const {
+  getTimelineItems
+} = require("../controllers/timelineController")
+
 router = express.Router();
 
 // Relationship routes
@@ -22,5 +26,7 @@ router.get("/dataset", getDataset);
 router.get("/graph/relationships", getGraphRelationships);
 router.get("/update-coor", updateCountries);
 router.get("/get-country-coord", getCountriesWithCoor);
+
+router.get("/timeline", getTimelineItems);
 
 module.exports = router;
