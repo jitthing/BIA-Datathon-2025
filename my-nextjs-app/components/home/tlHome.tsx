@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { Timeline, TimelineItem } from "@/components/timeline";
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
+
 export default function TlHome() {
   const [query, setQuery] = useState("Singapore");
   const [debouncedQuery, setDebouncedQuery] = useState(query);
@@ -34,7 +36,7 @@ export default function TlHome() {
     const fetchTimelineData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/timeline?word=${debouncedQuery}`
+          BACKEND_URL + `/api/timeline?word=${debouncedQuery}`
         );
         setTimelineData(res.data);
       } catch (error) {
