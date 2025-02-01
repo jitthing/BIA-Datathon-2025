@@ -8,9 +8,8 @@ async function getTimelineItems(req, res) {
   const { data, error } = await req.supabase
     .from("news_dates")
     .select("*")
-    .ilike("text", `%${word}%`)
-    .limit(10);  
-
+    .ilike("text", `%${word}%`);
+    
   if (error) {
     return res.status(500).json({ error: error.message });
   }
