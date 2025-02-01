@@ -7,8 +7,8 @@ import HmHome from "@/components/home/hmHome";
 
 export default function HomePage() {
     return (
-      <main className="flex flex-col gap-8 items-center sm:items-start px-6 pb-10">
-        <div className="grid gap-6 md:grid-cols-3 w-full">
+      <main className="flex flex-col gap-6 items-center sm:items-start px-6 pb-4">
+        <div className="grid gap-2 md:grid-cols-3 w-full">
           {/* Row 1: Three small charts */}
           <div className="h-[500px] flex flex-col overflow-hidden">
             <div className="flex-1 p-4">
@@ -20,7 +20,7 @@ export default function HomePage() {
               <TlHome />
             </div>
           </div>
-          <div className="h-[500px] flex flex-col pb-2">
+          <div className="h-[500px] flex flex-col">
             <div className="flex-1 overflow-y-auto p-4">
               <FvHome />
             </div>
@@ -28,7 +28,7 @@ export default function HomePage() {
   
           {/* Row 2: Large chart spanning two columns */}
           <div className="md:col-span-3 min-h-[300px] rounded-xl">
-            <div className="flex-1 overflow-y-auto p-4">
+            <div className="flex-1 overflow-y-auto px-4 py-1">
               <HmHome />
             </div>
           </div>
