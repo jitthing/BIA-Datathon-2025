@@ -1,156 +1,25 @@
 // components/GeographicalHeatmap.tsx
 "use client";
 
-import React, { useEffect } from "react";
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import "leaflet.heat";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet.heat';
+import axios from 'axios';
 
-// Define the type for geographical data points
-type HeatmapPoint = [number, number, number]; // [lat, lng, intensity]
+type HeatmapPoint = [number, number, number];
 
-const BACKEND_URL = process.env.BACKEND_URL;
-
-// var heatmapData: HeatmapPoint[] = [];
-
-const heatmapData: HeatmapPoint[] = [
-  [1.352083, 103.819836, 25300],
-  [35.86166, 104.195397, 13300],
-  [38.7945952, -106.5348379, 10900],
-  [36.204824, 138.252924, 6100],
-  [38.7945952, -106.5348379, 5700],
-  [38.7945952, -106.5348379, 5300],
-  [38.7945952, -106.5348379, 4900],
-  [20.593684, 78.96288, 4700],
-  [61.52401, 105.318756, 4700],
-  [1.352083, 103.819836, 4300],
-  [55.378051, -3.435973, 3900],
-  [4.210484, 101.975766, 3700],
-  [-0.789275, 113.921327, 3300],
-  [61.52401, 105.318756, 3200],
-  [23.69781, 120.960515, 2200],
-  [31.046051, 34.851612, 2100],
-  [51.165691, 10.451526, 2100],
-  [20.593684, 78.96288, 2000],
-  [41.87194, 12.56738, 2000],
-  [-25.274398, 133.775136, 2000],
-  [40.463667, -3.74922, 1900],
-  [22.3193039, 114.1693611, 1600],
-  [48.379433, 31.16558, 1500],
-  [46.227638, 2.213749, 1400],
-  [21.916221, 95.955974, 1400],
-  [23.634501, -102.552784, 1000],
-  [60.472024, 8.468946, 1000],
-  [56.130366, -106.346771, 900],
-  [30.375321, 69.345116, 900],
-  [38.7945952, -106.5348379, 900],
-  [-23.442503, -58.443832, 900],
-  [9.081999, 8.675277, 800],
-  [5.152149, 46.199616, 800],
-  [-14.235004, -51.92528, 800],
-  [-9.189967, -75.015152, 800],
-  [32.427908, 53.688046, 700],
-  [1.44213, 172.9829763, 700],
-  [-40.900557, 174.885971, 700],
-  [51.919438, 19.145136, 700],
-  [15.870032, 100.992541, 600],
-  [52.132633, 5.291266, 600],
-  [-35.675147, -71.542969, 600],
-  [53.7797554, -7.3055309, 600],
-  [60.128161, 18.643501, 500],
-  [55.378051, -3.435973, 500],
-  [53.709807, 27.953389, 500],
-  [-0.023559, 37.906193, 400],
-  [26.3351, 17.228331, 400],
-  [22.3193039, 114.1693611, 400],
-  [39.399872, -8.224454, 400],
-  [15.179384, 39.782334, 400],
-  [55.378051, -3.435973, 400],
-  [12.879721, 121.774017, 400],
-  [17.570692, -3.996166, 400],
-  [12.862807, 30.217636, 400],
-  [15.552727, 48.516388, 300],
-  [1.373333, 32.290275, 300],
-  [50.503887, 4.469936, 300],
-  [35.907757, 127.766922, 300],
-  [33.93911, 67.709953, 300],
-  [33.854721, 35.862285, 300],
-  [64.963051, -19.020835, 300],
-  [58.595272, 25.013607, 200],
-  [21.916221, 95.955974, 200],
-  [61.52401, 105.318756, 200],
-  [11.825138, 42.590275, 200],
-  [-0.522778, 166.931503, 200],
-  [26.820553, 30.802498, 200],
-  [23.885942, 45.079162, 200],
-  [-32.522779, -55.765835, 200],
-  [23.684994, 90.356331, 200],
-  [34.802075, 38.996815, 200],
-  [49.817492, 15.472962, 200],
-  [7.369722, 12.354722, 200],
-  [-1.940278, 29.873888, 200],
-  [26.0667, 50.5577, 100],
-  [48.669026, 19.699024, 100],
-  [21.521757, -77.781167, 100],
-  [-17.713371, 178.065032, 100],
-  [17.607789, 8.081666, 100],
-  [31.791702, -7.09262, 100],
-  [21.4735329, 55.975413, 100],
-  [-1.831239, -78.183406, 100],
-  [4.570868, -74.297333, 100],
-  [15.454166, 18.732207, 100],
-  [39.074208, 21.824312, 100],
-  [5.152149, 46.199616, 100],
-  [48.669026, 19.699024, 100],
-  [21.4735329, 55.975413, 100],
-  [9.748917, -83.753428, 100],
-  [14.497401, -14.452362, 100],
-  [7.873054, 80.771797, 100],
-  [18.109581, -77.297508, 100],
-  [4.860416, -58.93018, 100],
-  [-11.6455, 43.3333, 100],
-  [38.963745, 35.243322, 600],
-  [61.92411, 25.748151, 500],
-  [-0.228021, 15.827659, 500],
-  [33.223191, 43.679291, 400],
-  [28.394857, 84.124008, 400],
-  [-30.559482, 22.937506, 400],
-  [55.169438, 23.881275, 300],
-  [40.143105, 47.576927, 300],
-  [23.885942, 45.079162, 200],
-  [6.42375, -66.58973, 200],
-  [46.818188, 8.227512, 200],
-  [33.93911, 67.709953, 200],
-  [35.126413, 33.429859, 100],
-  [47.516231, 14.550072, 100],
-  [-13.133897, 27.849332, 100],
-  [48.019573, 66.923684, 100],
-  [41.902916, 12.453389, 100],
-  [-4.679574, 55.491977, 100],
-  [8.537981, -80.782127, 100],
-  [-6.314993, 143.95555, 100],
-];
-
-// Mock geographical data
-// will have to generate a data structure of position + intensity based on number of times mentioned, utilise google maps api?
-
-// Component to add the heatmap layer to the map
 const HeatmapLayer: React.FC<{ data: HeatmapPoint[] }> = ({ data }) => {
   const map = useMap();
 
   useEffect(() => {
-    // Add the heatmap layer
-    const heatmap = (L as any)
-      .heatLayer(data, {
-        radius: 25, // Adjust the radius of the heatmap points
-        blur: 15, // Adjust the blur effect
-        maxZoom: 17,
-      })
-      .addTo(map);
+    const heatmap = (L as any).heatLayer(data, {
+      radius: 25,
+      blur: 15,
+      maxZoom: 17,
+    }).addTo(map);
 
-    // Cleanup on unmount
     return () => {
       map.removeLayer(heatmap);
     };
@@ -160,23 +29,22 @@ const HeatmapLayer: React.FC<{ data: HeatmapPoint[] }> = ({ data }) => {
 };
 
 const GeographicalHeatmap: React.FC = () => {
-  // useEffect(() => {
-  //   const fetchHeatmapData = async () => {
-  //     try {
-  //       // console.log(BACKEND_URL);
-  //       const response = await axios.get(
-  //         `http://localhost:8000/api/get-country-coord`
-  //       );
-  //       const data: HeatmapPoint[] = response.data;
-  //       heatmapData = data;
-  //       console.log(heatmapData);
-  //     } catch (error) {
-  //       console.error("Error fetching heatmap data:", error);
-  //     }
-  //   };
+  const [heatmapData, setHeatmapData] = useState<HeatmapPoint[]>([]);
 
-  //   fetchHeatmapData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/get-country-coord'); // Adjust the endpoint as needed
+        const data = response.data;
+        setHeatmapData(data);
+      } catch (error) {
+        console.error('Error fetching heatmap data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div style={{ height: "500px", width: "100%" }}>
       <MapContainer
@@ -188,6 +56,11 @@ const GeographicalHeatmap: React.FC = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
+        {heatmapData.map((data, index) => (
+          <Marker key={index} position={[data[0], data[1]]}>
+            <Popup>some data here</Popup>
+          </Marker>
+        ))}
         <HeatmapLayer data={heatmapData} />
       </MapContainer>
     </div>
