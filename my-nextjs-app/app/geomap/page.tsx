@@ -14,7 +14,7 @@ const GeographicalHeatmap = dynamic(
 
 // var heatmapData: HeatmapPoint[] = [];
 
-export default function HeatMap() {
+export default function GeoMap() {
   return (
     <div style={{ fontFamily: "Arial, sans-serif" }}>
       <h1>Entity Relationship Dashboard</h1>

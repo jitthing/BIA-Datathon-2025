@@ -14,7 +14,7 @@ const GeographicalHeatmap = dynamic(
   { ssr: false } // This will only render the component on the client side
 );
 
-export default function HmHome() {
+export default function GmHome() {
 
   return (
     <Card className="flex flex-col">
